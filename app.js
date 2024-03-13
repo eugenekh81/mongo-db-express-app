@@ -1,8 +1,10 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const URI_DB =
-  'mongodb+srv://eugenekh:11223344@cluster0.9ygq56g.mongodb.net/users?retryWrites=true';
+require('dotenv').config();
+
+const DB_URI = process.env.DB_URI;
+const PORT = process.env.PORT || 3000;
 
 const userRouter = require('./routes/users');
 
@@ -12,10 +14,10 @@ app.use(express.json());
 
 app.use('/users', userRouter);
 
-mongoose.connect(URI_DB).then(() => {
+mongoose.connect(DB_URI).then(() => {
   console.log('Database connection successful');
 
-  app.listen(3000, () => {
-    console.log('Server is running on http://localhost:3000');
+  app.listen(PORT, () => {
+    console.log(`Server is running on http://localhost:${PORT}`);
   });
 });
